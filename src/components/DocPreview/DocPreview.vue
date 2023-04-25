@@ -12,7 +12,14 @@
         :src="fileUrl"
         :preview-src-list="[fileUrl]"
     />
-    <VuePdfEmbed v-if="fileType === 'pdf'" :source="fileUrl"/>
+    <VuePdfEmbed
+        v-if="fileType === 'pdf'"
+        :source="{
+            url: fileUrl,
+            cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.5.207/cmaps/',
+            cMapPacked: true
+        }"
+    />
   </div>
 </template>
 
@@ -21,7 +28,7 @@ import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/image/style/css'
 import {nextTick, onMounted, ref, Ref} from 'vue';
 import {renderAsync} from 'docx-preview';
-import { ElMessage, ElImage } from 'element-plus';
+import {ElMessage, ElImage} from 'element-plus';
 import {read, utils} from 'xlsx';
 import VuePdfEmbed from 'vue-pdf-embed';
 import {download, errorMsg} from '../../services/download/download.service';
